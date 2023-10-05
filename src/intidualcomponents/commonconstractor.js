@@ -7,11 +7,14 @@ function Commonstructor(props) {
   const handleImageClick = () => {
     const clickedId = props.id; // Get the id from the props
 
-    // Check if the clicked image's id matches any id in Qwe
-    const match = Qwe.find((item) => item.id === clickedId);
+    // Filter for all items with the matching id in Qwe
+    const matches = Qwe.filter((item) => item.id === clickedId);
 
-    if (match) {
-      setMessage(`Clicked image with id: ${clickedId}`);
+    if (matches.length > 0) {
+      // Cycle through the matching images one by one
+      const currentIndex = matches.findIndex((item) => item.url === props.url);
+      const nextIndex = (currentIndex + 1) % matches.length;
+      setMessage(`Clicked image with id: ${clickedId}, URL: ${matches[nextIndex].url}`);
     } else {
       setMessage("Not found");
     }
